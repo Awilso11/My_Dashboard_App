@@ -32,19 +32,14 @@ def fetch_fred_latest(series_id):
     return "N/A", "N/A"
 
 def make_gauge(val):
-    # background to match your card_bg in dark/light
-    bg = card_bg if is_dark else "#ffffff"
+    # Use the same dark card background
+    bg = card_bg
 
     fig = go.Figure(go.Indicator(
         mode="gauge+number",
         value=val,
-        number={
-            "font": {"color": txt_color, "size": 48}
-        },
-        title={
-            "text": "CNN Fear & Greed",
-            "font": {"color": txt_color, "size": 24}
-        },
+        number={"font": {"color": txt_color, "size": 48}},
+        title={"text": "CNN Fear & Greed", "font": {"color": txt_color, "size": 24}},
         gauge={
             "axis": {
                 "range": [0, 100],
@@ -69,15 +64,14 @@ def make_gauge(val):
     ))
 
     fig.update_layout(
-        paper_bgcolor=bg,        # whole figure background
-        plot_bgcolor=bg,         # plotting area background
+        paper_bgcolor=bg,
+        plot_bgcolor=bg,
         font={"color": txt_color},
         title_font_color=txt_color,
-        margin=dict(l=20, r=20, t=80, b=20),
+        margin=dict(l=0, r=0, t=40, b=0),
         height=400
     )
     return fig
-
 
 
 col1, col2 = st.columns([5, 1])
