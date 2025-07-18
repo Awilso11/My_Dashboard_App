@@ -197,7 +197,7 @@ with chart_col:
         st.markdown(f"""
         <a href="{chart_link}" target="_self" style="text-decoration: none;">
             <iframe
-                src="https://www.tradingview.com/widgetembed/?symbol={symbol}&interval=D&theme={tv_theme}&style=3&withdateranges=1&hide_top_toolbar=1&hideideas=1&toolbarbg=0&studies=[]"
+                src="https://s.tradingview.com/widgetembed/?symbol={symbol}&interval=D&theme={tv_theme}&style=3&withdateranges=1&hide_top_toolbar=1&hideideas=1&toolbarbg=0&studies=[]"
                 width="100%" height="500" frameborder="0" allowtransparency="true" scrolling="no">
             </iframe>
         </a>
