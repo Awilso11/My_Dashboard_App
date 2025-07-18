@@ -6,36 +6,19 @@ import plotly.graph_objects as go
 import yfinance as yf
 from datetime import datetime
 
-mode = st.sidebar.selectbox("Theme", ["Dark", "Light"])
-is_dark = (mode == "Dark")
+# Always use dark
+is_dark = True
 
-bg_color = "#0B1021" if is_dark else "#FFFFFF"
-txt_color = "#FFFFFF" if is_dark else "#000000"
-card_bg = "#1c1f2e" if is_dark else "#f0f2f6"
+# Unified dark background & text
+card_bg   = bg_color = "#0B1021"
+txt_color = "#FFFFFF"
 
-st.markdown(f'''
-    <style>
-    .metric-box {{
-        padding: 1.5rem;
-        border-radius: 10px;
-        background-color: {card_bg};
-        color: {txt_color};
-        text-align: center;
-        border: 1px solid {'#333' if is_dark else '#ddd'};
-        font-size: 1.3rem;
-    }}
-    .bullish {{
-        color: #32CD32;
-        font-weight: bold;
-        font-size: 2.5rem;
-    }}
-    .bearish {{
-        color: #FF6B6B;
-        font-weight: bold;
-        font-size: 2.5rem;
-    }}
-    </style>
-''', unsafe_allow_html=True)
+# Make the entire app background the same dark color
+st.markdown(f"""
+<style>
+  .stApp {{ background-color: {bg_color}; }}
+</style>
+""", unsafe_allow_html=True)
 
 FRED_API_KEY = st.secrets["FRED_API_KEY"]
 FRED_BASE = "https://api.stlouisfed.org/fred/series/observations"
