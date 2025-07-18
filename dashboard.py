@@ -13,6 +13,23 @@ is_dark = True
 card_bg   = bg_color = "#0B1021"
 txt_color = "#FFFFFF"
 
+st.markdown(f"""
+<style>
+  /* main app background */
+  [data-testid="stAppViewContainer"] {{
+    background-color: {bg_color} !important;
+  }}
+  /* sidebar background */
+  [data-testid="stSidebar"] {{
+    background-color: {bg_color} !important;
+  }}
+  /* top toolbar (hamburger menu area) */
+  [data-testid="stToolbar"] {{
+    background-color: {bg_color} !important;
+  }}
+</style>
+""", unsafe_allow_html=True)
+
 st.markdown(f'''
     <style>
         .metric-box {{
