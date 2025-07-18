@@ -104,6 +104,14 @@ def fetch_inflation_yoy():
         return f"{yoy_change:.1f}%", date
     return "N/A", "N/A"
 
+def fetch_fear_and_greed():
+    """Return the latest Fear & Greed index (0–100) from alternative.me."""
+    url = "https://api.alternative.me/fng/?limit=1&format=json"
+    data = requests.get(url).json().get("data", [])
+    if data and "value" in data[0]:
+        return int(data[0]["value"])
+    return None
+
 cols = st.columns(len(metrics) + 1)
 
 for idx, (label, (sid, sentiment)) in enumerate(metrics.items()):
@@ -153,7 +161,12 @@ with chart_col:
 
 
 with gauge_col:
-    st.plotly_chart(make_gauge(76), use_container_width=True)
+    fng_value = fetch_fear_and_greed()
+    if fng_value is not None:
+        st.plotly_chart(make_gauge(fng_value), use_container_width=True)
+    else:
+        st.error("Could not load Fear & Greed index")
+
 
 footer = "<div style='text-align:center;color:gray;'>Data: FRED & Yahoo Finance • Richmond Concierge Health</div>"
 st.markdown(footer, unsafe_allow_html=True)
