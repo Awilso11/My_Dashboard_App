@@ -3,9 +3,6 @@ import pandas as pd
 import requests
 from datetime import datetime
 
-st.write("Loaded secrets:", list(st.secrets.keys()))
-# then your existing imports and code…
-
 st.set_page_config(page_title="City Pulse", layout="wide")
 
 # Underline all headers via CSS
