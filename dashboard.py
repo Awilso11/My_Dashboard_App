@@ -195,7 +195,6 @@ with chart_col:
     # Call the function for SPY
     embed_tradingview_chart("AMEX:SPY")
 
-
 with gauge_col:
     fng_value = fetch_fear_and_greed()
     if fng_value is not None:
