@@ -13,12 +13,40 @@ is_dark = True
 card_bg   = bg_color = "#0B1021"
 txt_color = "#FFFFFF"
 
-# Make the entire app background the same dark color
-st.markdown(f"""
-<style>
-  .stApp {{ background-color: {bg_color}; }}
-</style>
-""", unsafe_allow_html=True)
+st.markdown(f'''
+    <style>
+      /* Make the metric boxes fully transparent / blend with page */
+      .metric-box {{
+        padding: 1rem !important;
+        border-radius: 0.5rem !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+      }}
+
+      /* Style the title text inside the box */
+      .metric-box h5 {{
+        color: {txt_color} !important;
+        font-size: 1rem !important;
+        margin-bottom: 0.25rem !important;
+      }}
+
+      /* Make the numeric values really big and bold */
+      .metric-box .bullish,
+      .metric-box .bearish {{
+        font-size: 3rem !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+      }}
+
+      /* Optional: tweak the “as of” date text */
+      .metric-box small {{
+        color: #888 !important;
+        font-size: 0.75rem !important;
+      }}
+    </style>
+''', unsafe_allow_html=True)
+
 
 FRED_API_KEY = st.secrets["FRED_API_KEY"]
 FRED_BASE = "https://api.stlouisfed.org/fred/series/observations"
