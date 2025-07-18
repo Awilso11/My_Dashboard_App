@@ -204,7 +204,7 @@ with chart_col:
         """, unsafe_allow_html=True)
 
     # Call the function for SPY
-    embed_tradingview_chart("NYSEARCA:SPY")
+    embed_tradingview_chart("AMEX:SPY")
 
 with gauge_col:
     fng_value = fetch_fear_and_greed()
