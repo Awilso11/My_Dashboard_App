@@ -141,12 +141,23 @@ def fetch_inflation_yoy():
     return "N/A", "N/A"
 
 def fetch_fear_and_greed():
-    """Return the latest Fear & Greed index (0–100) from alternative.me."""
+    """
+    Return the latest Fear & Greed index (0–100) as an int,
+    or None on failure.
+    """
     url = "https://api.alternative.me/fng/?limit=1&format=json"
-    data = requests.get(url).json().get("data", [])
-    if data and "value" in data[0]:
-        return int(data[0]["value"])
+    try:
+        resp = requests.get(url, timeout=5)
+        resp.raise_for_status()
+        data = resp.json().get("data", [])
+        if data and "value" in data[0]:
+            # API returns the value as a string, e.g. "55"
+            return int(data[0]["value"])
+    except Exception as e:
+        # Optional: log or display the error somewhere
+        st.error(f"Error loading Fear & Greed: {e}")
     return None
+
 
 cols = st.columns(len(metrics) + 1)
 
@@ -200,8 +211,7 @@ with gauge_col:
     if fng_value is not None:
         st.plotly_chart(make_gauge(fng_value), use_container_width=True)
     else:
-        st.error("Could not load Fear & Greed index")
-
+        st.error("⚠️ Could not load Fear & Greed index")
 
 footer = "<div style='text-align:center;color:gray;'>Data: FRED & Yahoo Finance • Richmond Concierge Health</div>"
 st.markdown(footer, unsafe_allow_html=True)
