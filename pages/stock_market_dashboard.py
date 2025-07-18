@@ -165,7 +165,6 @@ plot_tickers = {
     "^DJI":   "Dow Jones",
     "TIP":    "Inflation",
     "UNG":    "Unemployment",
-    "GDP":    "GDP",
     "TLT":    "Federal Debt"
 }
 
