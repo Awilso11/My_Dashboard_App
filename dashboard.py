@@ -50,28 +50,47 @@ def fetch_fred_latest(series_id):
 
 def make_gauge(val):
     fig = go.Figure(go.Indicator(
-        mode="gauge+number",
+        mode="gauge+number",              # ensure both gauge and number
         value=val,
-        gauge={
-            'axis': {'range': [0, 100]},
-            'bar': {'color': "rgba(0,0,0,0)"},
-            'steps': [
-                {'range': [0, 20], 'color': '#8B0000'},
-                {'range': [20, 40], 'color': '#FF6347'},
-                {'range': [40, 60], 'color': '#32CD32'},
-                {'range': [60, 80], 'color': '#228B22'},
-                {'range': [80, 100], 'color': '#006400'}
-            ],
-            'threshold': {
-                'line': {'color': "black", 'width': 4},
-                'thickness': 0.75,
-                'value': val
-            }
+        number={                          # style the big number
+            "font": {"color": txt_color, "size": 48}
         },
-        title={'text': "CNN Fear & Greed", 'font': {'color': txt_color}}
+        title={                           # style the title text
+            "text": "CNN Fear & Greed",
+            "font": {"color": txt_color, "size": 24}
+        },
+        gauge={
+            "axis": {
+                "range": [0, 100],
+                "tickmode": "array",
+                "tickvals": [0, 20, 40, 60, 80, 100],
+                "ticktext": ["0","20","40","60","80","100"],
+                "tickfont": {"color": txt_color}
+            },
+            "bar": {"color": "rgba(0,0,0,0)"},
+            "steps": [
+                {"range": [0, 20],  "color": "#8B0000"},
+                {"range": [20, 40], "color": "#FF6347"},
+                {"range": [40, 60], "color": "#32CD32"},
+                {"range": [60, 80], "color": "#228B22"},
+                {"range": [80, 100],"color": "#006400"}
+            ],
+            "threshold": {
+                "line": {"color": "black", "width": 4},
+                "thickness": 0.75,
+                "value": val
+            }
+        }
     ))
-    fig.update_layout(paper_bgcolor="rgba(0,0,0,0)" if is_dark else "#fff", font={'color': txt_color})
+
+    # make the background transparent or white depending on theme
+    paper_bg = "rgba(0,0,0,0)" if is_dark else "#ffffff"
+    fig.update_layout(
+        paper_bgcolor=paper_bg,
+        font={"color": txt_color}
+    )
     return fig
+
 
 col1, col2 = st.columns([5, 1])
 with col1:
